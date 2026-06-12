@@ -11,6 +11,7 @@ router = APIRouter(prefix="/quiz", tags=["Quiz"])
 def submit_quiz(submission: schemas.QuizSubmission, db: Session = Depends(get_db)):
     score = 0
     total = len(submission.answers)
+    answer_results = []
 
     for answer in submission.answers:
         question = (
@@ -19,11 +20,39 @@ def submit_quiz(submission: schemas.QuizSubmission, db: Session = Depends(get_db
             .first()
         )
 
+        is_correct = False
+
         if (
             question
             and answer.selected_answer.upper() == question.correct_answer.upper()
         ):
+            is_correct = True
             score += 1
+
+        answer_results.append(
+            {
+                "question_id": answer.question_id,
+                "selected_answer": answer.selected_answer.upper(),
+                "is_correct": is_correct,
+            }
+        )
+
+    new_attempt = models.QuizAttempt(user_id=None, score=score, total_questions=total)
+
+    db.add(new_attempt)
+    db.commit()
+    db.refresh(new_attempt)
+
+    for result in answer_results:
+        new_answer = models.UserAnswer(
+            attempt_id=new_attempt.id,
+            question_id=result["question_id"],
+            selected_answer=result["selected_answer"],
+            is_correct=result["is_correct"],
+        )
+        db.add(new_answer)
+
+    db.commit()
 
     percentage = (score / total * 100) if total > 0 else 0
 
