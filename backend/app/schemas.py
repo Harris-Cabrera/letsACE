@@ -14,6 +14,21 @@ class QuestionResponse(BaseModel):
         from_attributes = True
 
 
+class QuizAnswer(BaseModel):
+    question_id: int
+    selected_answer: str
+
+
+class QuizResult(BaseModel):
+    score: int
+    total: int
+    percentage: float
+
+
+class QuizSubmission(BaseModel):
+    answers: list[QuizAnswer]
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str
