@@ -1,6 +1,13 @@
 from pydantic import BaseModel, EmailStr
 
 
+class DashboardStats(BaseModel):
+    total_attempts: int
+    questions_answered: int
+    correct_answers: int
+    accuracy: float
+
+
 class QuestionResponse(BaseModel):
     id: int
     domain: str
