@@ -8,6 +8,13 @@ class DashboardStats(BaseModel):
     accuracy: float
 
 
+class DomainPerformance(BaseModel):
+    domain: str
+    answered: int
+    correct: int
+    accuracy: float
+
+
 class QuestionResponse(BaseModel):
     id: int
     domain: str
