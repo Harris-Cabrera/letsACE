@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import engine
 from app import models
@@ -8,11 +9,19 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="letsACE API")
 
-#router reguistration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+# router reguistration
 app.include_router(auth_routes.router)
 app.include_router(question_routes.router)
 app.include_router(quiz_routes.router)
 app.include_router(dashboard_routes.router)
+
 
 @app.get("/")
 def root():
