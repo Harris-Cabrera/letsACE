@@ -1,5 +1,23 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Dashboard() {
-  return <h1>Dashboard Page</h1>;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <p>You are currently logged in.</p>
+    </div>
+  );
 }
 
 export default Dashboard;
