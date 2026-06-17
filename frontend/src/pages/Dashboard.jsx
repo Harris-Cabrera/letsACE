@@ -22,14 +22,14 @@ function Dashboard() {
     <Layout>
       <div className="card" style={{ width: "100%", maxWidth: "720px" }}>
         <h1>letsACE Dashboard</h1>
-        <p>Welcome back. Continue your certification practice.</p>
+        <p>Welcome back.</p>
 
         <div className="button-row" style={{ marginTop: "24px" }}>
           <button onClick={() => navigate("/quiz")}>Start Quiz</button>
 
-          <button className="secondary-button" onClick={handleLogout}>
+          {/* <button className="secondary-button" onClick={handleLogout}>
             Logout
-          </button>
+          </button> */}
         </div>
       </div>
     </Layout>
