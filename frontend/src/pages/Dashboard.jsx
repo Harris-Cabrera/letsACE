@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -18,15 +19,20 @@ function Dashboard() {
   };
 
   return (
-    <div className="page">
-      <h1>Dashboard</h1>
-      <p>You are currently logged in.</p>
+    <Layout>
+      <div className="card" style={{ width: "100%", maxWidth: "720px" }}>
+        <h1>letsACE Dashboard</h1>
+        <p>Welcome back. Continue your certification practice.</p>
 
-      <div>
-        <button onClick={() => navigate("/quiz")}>Start Quiz</button>
-        <button onClick={handleLogout}>Logout</button>
+        <div className="button-row" style={{ marginTop: "24px" }}>
+          <button onClick={() => navigate("/quiz")}>Start Quiz</button>
+
+          <button className="secondary-button" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
