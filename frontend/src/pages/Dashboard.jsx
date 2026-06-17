@@ -12,10 +12,20 @@ function Dashboard() {
     }
   }, [navigate]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
-    <div>
+    <div className="page">
       <h1>Dashboard</h1>
       <p>You are currently logged in.</p>
+
+      <div>
+        <button onClick={() => navigate("/quiz")}>Start Quiz</button>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
     </div>
   );
 }
