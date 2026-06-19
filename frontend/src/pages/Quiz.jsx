@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Card from "../components/Card";
 import Layout from "../components/Layout";
+import ProgressBar from "../components/ProgressBard";
 
 function Quiz() {
     const navigate = useNavigate();
@@ -93,11 +95,15 @@ function Quiz() {
 
     return (
         <Layout>
-            <div className="card">
+            <Card className="quiz-card">
                 <h1>Quiz</h1>
 
                 <p>
                     Question {currentIndex + 1} of {questions.length}
+                    <ProgressBar
+                        current={currentIndex + 1}
+                        total={questions.length}
+                    />
                 </p>
 
                 <p>Domain: {question.domain}</p>
@@ -127,7 +133,7 @@ function Quiz() {
                 <button onClick={handleNext} disabled={!selectedAnswer}>
                     {currentIndex + 1 === questions.length ? "Submit Quiz" : "Next"}
                 </button>
-            </div>
+            </Card>
         </Layout>
     );
 }

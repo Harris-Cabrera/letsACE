@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import Card from "../components/Card";
 import Layout from "../components/Layout";
 
 
@@ -22,7 +22,7 @@ function Dashboard() {
 
   return (
     <Layout>
-      <div className="card" style={{ width: "100%", maxWidth: "720px" }}>
+      <Card className="dashboard-card">
         <h1>letsACE Dashboard</h1>
         <p>Welcome back.</p>
 
@@ -30,7 +30,7 @@ function Dashboard() {
           <button onClick={() => navigate("/quiz")}>Start Quiz</button>
 
         </div>
-      </div>
+      </Card>
     </Layout>
   );
 }
