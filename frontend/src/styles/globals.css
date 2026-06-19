@@ -1,21 +1,46 @@
+:root {
+  /* Backgrounds */
+  --background: #0f172a;
+  --surface: #1e293b;
+  --surface-hover: #334155;
+
+  /* Primary */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+
+  /* Status */
+  --danger: #ef4444;
+  --success: #22c55e;
+  --warning: #f59e0b;
+
+  /* Text */
+  --text: #f8fafc;
+  --text-secondary: #cbd5e1;
+
+  /* Border */
+  --border: #334155;
+
+  /* Shadow */
+  --shadow: 0 12px 30px rgba(0,0,0,.35);
+
+  /* Radius */
+  --radius: 16px;
+}
+
 * {
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body,
 #root {
-    width: 100%;
-    min-height: 100vh;
-    margin: 0;
+  min-height: 100vh;
 }
 
 body {
-    background: #111827;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-button {
-    cursor: pointer;
+  background: var(--background);
+  color: var(--text);
+  font-family: Inter, Arial, Helvetica, sans-serif;
 }

@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Layout from "../components/Layout";
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -27,9 +29,6 @@ function Dashboard() {
         <div className="button-row" style={{ marginTop: "24px" }}>
           <button onClick={() => navigate("/quiz")}>Start Quiz</button>
 
-          {/* <button className="secondary-button" onClick={handleLogout}>
-            Logout
-          </button> */}
         </div>
       </div>
     </Layout>

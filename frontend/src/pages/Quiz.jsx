@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
 
 function Quiz() {
     const navigate = useNavigate();
@@ -91,41 +92,43 @@ function Quiz() {
     const question = questions[currentIndex];
 
     return (
-        <div>
-            <h1>Quiz</h1>
+        <Layout>
+            <div className="card">
+                <h1>Quiz</h1>
 
-            <p>
-                Question {currentIndex + 1} of {questions.length}
-            </p>
+                <p>
+                    Question {currentIndex + 1} of {questions.length}
+                </p>
 
-            <p>Domain: {question.domain}</p>
+                <p>Domain: {question.domain}</p>
 
-            <h2>{question.question_text}</h2>
+                <h2>{question.question_text}</h2>
 
-            <div>
-                <button onClick={() => setSelectedAnswer("A")}>
-                    A. {question.option_a}
-                </button>
+                <div className="button-row">
+                    <button onClick={() => setSelectedAnswer("A")}>
+                        A. {question.option_a}
+                    </button>
 
-                <button onClick={() => setSelectedAnswer("B")}>
-                    B. {question.option_b}
-                </button>
+                    <button onClick={() => setSelectedAnswer("B")}>
+                        B. {question.option_b}
+                    </button>
 
-                <button onClick={() => setSelectedAnswer("C")}>
-                    C. {question.option_c}
-                </button>
+                    <button onClick={() => setSelectedAnswer("C")}>
+                        C. {question.option_c}
+                    </button>
 
-                <button onClick={() => setSelectedAnswer("D")}>
-                    D. {question.option_d}
+                    <button onClick={() => setSelectedAnswer("D")}>
+                        D. {question.option_d}
+                    </button>
+                </div>
+
+                <p>Selected: {selectedAnswer || "None"}</p>
+
+                <button onClick={handleNext} disabled={!selectedAnswer}>
+                    {currentIndex + 1 === questions.length ? "Submit Quiz" : "Next"}
                 </button>
             </div>
-
-            <p>Selected: {selectedAnswer || "None"}</p>
-
-            <button onClick={handleNext} disabled={!selectedAnswer}>
-                {currentIndex + 1 === questions.length ? "Submit Quiz" : "Next"}
-            </button>
-        </div>
+        </Layout>
     );
 }
 
