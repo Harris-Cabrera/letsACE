@@ -105,7 +105,9 @@ function Quiz() {
                         current={currentIndex + 1}
                         total={questions.length}
                     />
-
+                    <p className="progress-text">
+                        {Math.round(((currentIndex + 1) / questions.length) * 100)}% Complete
+                    </p>
                 </p>
 
                 <p>Domain: {question.domain}</p>
@@ -141,10 +143,6 @@ function Quiz() {
                         onClick={() => setSelectedAnswer("D")}
                     />
                 </div>
-
-
-                {/* <p>Selected: {selectedAnswer || "None"}</p> */}
-
                 <button onClick={handleNext} disabled={!selectedAnswer}>
                     {currentIndex + 1 === questions.length ? "Submit Quiz" : "Next"}
                 </button>
