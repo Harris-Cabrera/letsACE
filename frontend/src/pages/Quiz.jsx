@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
 import ProgressBar from "../components/ProgressBard";
+import AnswerCard from "../components/answerCard";
 
 function Quiz() {
     const navigate = useNavigate();
@@ -104,31 +105,45 @@ function Quiz() {
                         current={currentIndex + 1}
                         total={questions.length}
                     />
+
                 </p>
 
                 <p>Domain: {question.domain}</p>
 
                 <h2>{question.question_text}</h2>
 
-                <div className="button-row">
-                    <button onClick={() => setSelectedAnswer("A")}>
-                        A. {question.option_a}
-                    </button>
+                <div className="answer-list">
+                    <AnswerCard
+                        label="A"
+                        text={question.option_a}
+                        selected={selectedAnswer === "A"}
+                        onClick={() => setSelectedAnswer("A")}
+                    />
 
-                    <button onClick={() => setSelectedAnswer("B")}>
-                        B. {question.option_b}
-                    </button>
+                    <AnswerCard
+                        label="B"
+                        text={question.option_b}
+                        selected={selectedAnswer === "B"}
+                        onClick={() => setSelectedAnswer("B")}
+                    />
 
-                    <button onClick={() => setSelectedAnswer("C")}>
-                        C. {question.option_c}
-                    </button>
+                    <AnswerCard
+                        label="C"
+                        text={question.option_c}
+                        selected={selectedAnswer === "C"}
+                        onClick={() => setSelectedAnswer("C")}
+                    />
 
-                    <button onClick={() => setSelectedAnswer("D")}>
-                        D. {question.option_d}
-                    </button>
+                    <AnswerCard
+                        label="D"
+                        text={question.option_d}
+                        selected={selectedAnswer === "D"}
+                        onClick={() => setSelectedAnswer("D")}
+                    />
                 </div>
 
-                <p>Selected: {selectedAnswer || "None"}</p>
+
+                {/* <p>Selected: {selectedAnswer || "None"}</p> */}
 
                 <button onClick={handleNext} disabled={!selectedAnswer}>
                     {currentIndex + 1 === questions.length ? "Submit Quiz" : "Next"}
