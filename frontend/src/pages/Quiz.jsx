@@ -5,6 +5,7 @@ import Card from "../components/Card";
 import Layout from "../components/Layout";
 import ProgressBar from "../components/ProgressBard";
 import AnswerCard from "../components/answerCard";
+import "../styles/quiz.css";
 
 function Quiz() {
     const navigate = useNavigate();
@@ -98,7 +99,9 @@ function Quiz() {
         <Layout>
             <Card className="quiz-card">
                 <h1>Quiz</h1>
-
+                <div className="domain-badge">
+                    {question.domain}
+                </div>
                 <p>
                     Question {currentIndex + 1} of {questions.length}
                     <ProgressBar
@@ -110,9 +113,10 @@ function Quiz() {
                     </p>
                 </p>
 
-                <p>Domain: {question.domain}</p>
+                <h2 className="question-title">
+                    {question.question_text}
+                </h2>
 
-                <h2>{question.question_text}</h2>
 
                 <div className="answer-list">
                     <AnswerCard

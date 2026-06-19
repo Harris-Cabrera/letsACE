@@ -46,13 +46,4 @@ button:hover {
     background: #4b5563;
 }
 
-.progress-text {
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
 
-.quiz-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-}

@@ -3,6 +3,7 @@ import "./styles/card.css";
 import "./styles/globals.css";
 import "./styles/layout.css";
 import "./styles/progress.css";
+import "./styles/quiz.css";
 
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
