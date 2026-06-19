@@ -143,9 +143,11 @@ function Quiz() {
                         onClick={() => setSelectedAnswer("D")}
                     />
                 </div>
-                <button onClick={handleNext} disabled={!selectedAnswer}>
-                    {currentIndex + 1 === questions.length ? "Submit Quiz" : "Next"}
-                </button>
+                <div className="quiz-actions">
+                    <button onClick={handleNext} disabled={!selectedAnswer}>
+                        {currentIndex + 1 === questions.length ? "Submit Quiz" : "Next →"}
+                    </button>
+                </div>
             </Card>
         </Layout>
     );
