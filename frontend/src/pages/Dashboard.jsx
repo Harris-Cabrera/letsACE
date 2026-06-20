@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../api";
 
 import Card from "../components/Card";
+import DomainPerformance from "../components/DomainPerformance";
 import Layout from "../components/Layout";
 import StatCard from "../components/StatCard";
 
@@ -11,6 +12,7 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const [history, setHistory] = useState([]);
+  const [domains, setDomains] = useState([]);
   const [stats, setStats] = useState({
     total_attempts: 0,
     questions_answered: 0,
@@ -29,13 +31,17 @@ function Dashboard() {
 
     const fetchDashboard = async () => {
       try {
-        const [historyResponse, statsResponse] = await Promise.all([
-          API.get("/history/"),
-          API.get("/dashboard/stats"),
-        ]);
+        const [historyResponse, statsResponse, domainResponse] =
+          await Promise.all([
+            API.get("/history/"),
+            API.get("/dashboard/stats"),
+            API.get("/dashboard/domain-performance"),
+          ]);
 
         setHistory(historyResponse.data);
         setStats(statsResponse.data);
+        setDomains(domainResponse.data);
+
       } catch (error) {
         console.error("Failed to load dashboard:", error);
       }
@@ -64,7 +70,11 @@ function Dashboard() {
 
       <Card className="dashboard-card">
         <h2>Recent Attempts</h2>
+        <Card className="dashboard-card">
+          <h2>Domain Performance</h2>
 
+          <DomainPerformance domains={domains} />
+        </Card>
         {history.length === 0 ? (
           <p>No quiz attempts yet.</p>
         ) : (
