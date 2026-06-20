@@ -1,23 +1,37 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from collections import defaultdict
 
 from app.database import get_db
+from app.auth import get_current_user
 from app import models, schemas
-from collections import defaultdict
 
 router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
 
 
 @router.get("/stats", response_model=schemas.DashboardStats)
-def get_dashboard_stats(db: Session = Depends(get_db)):
-    total_attempts = db.query(models.QuizAttempt).count()
-    questions_answered = db.query(models.UserAnswer).count()
-    correct_answers = (
-        db.query(models.UserAnswer).filter(models.UserAnswer.is_correct == True).count()
+def get_dashboard_stats(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    attempts = (
+        db.query(models.QuizAttempt)
+        .filter(models.QuizAttempt.user_id == current_user.id)
+        .all()
     )
+
+    total_attempts = len(attempts)
+    questions_answered = sum(attempt.total_questions for attempt in attempts)
+    correct_answers = sum(attempt.score for attempt in attempts)
 
     accuracy = (
         correct_answers / questions_answered * 100 if questions_answered > 0 else 0
+    )
+
+    best_score = (
+        max((attempt.score / attempt.total_questions) * 100 for attempt in attempts)
+        if attempts
+        else 0
     )
 
     return {
@@ -25,12 +39,21 @@ def get_dashboard_stats(db: Session = Depends(get_db)):
         "questions_answered": questions_answered,
         "correct_answers": correct_answers,
         "accuracy": accuracy,
+        "best_score": best_score,
     }
 
 
 @router.get("/domain-performance", response_model=list[schemas.DomainPerformance])
-def get_domain_performance(db: Session = Depends(get_db)):
-    answers = db.query(models.UserAnswer).all()
+def get_domain_performance(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+    answers = (
+        db.query(models.UserAnswer)
+        .join(models.QuizAttempt, models.UserAnswer.attempt_id == models.QuizAttempt.id)
+        .filter(models.QuizAttempt.user_id == current_user.id)
+        .all()
+    )
 
     domain_stats = defaultdict(lambda: {"answered": 0, "correct": 0})
 
@@ -45,7 +68,6 @@ def get_domain_performance(db: Session = Depends(get_db)):
             continue
 
         domain = question.domain
-
         domain_stats[domain]["answered"] += 1
 
         if answer.is_correct:

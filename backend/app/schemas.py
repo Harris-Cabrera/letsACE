@@ -6,6 +6,7 @@ class DashboardStats(BaseModel):
     questions_answered: int
     correct_answers: int
     accuracy: float
+    best_score: float
 
 
 class DomainPerformance(BaseModel):
