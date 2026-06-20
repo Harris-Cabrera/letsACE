@@ -1,9 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./styles/card.css";
+import "./styles/dashboard.css";
 import "./styles/globals.css";
 import "./styles/layout.css";
+import "./styles/navbar.css";
 import "./styles/progress.css";
 import "./styles/quiz.css";
+import "./styles/statCard.css";
 
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";

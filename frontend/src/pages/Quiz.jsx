@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Card from "../components/Card";
 import Layout from "../components/Layout";
 import ProgressBar from "../components/ProgressBard";
 import AnswerCard from "../components/answerCard";
-import "../styles/quiz.css";
 
 function Quiz() {
     const navigate = useNavigate();
