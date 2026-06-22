@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 import API from "../api";
 
 import Card from "../components/Card";
-import DomainPerformance from "../components/DomainPerformance";
 import Layout from "../components/Layout";
 import StatCard from "../components/StatCard";
+import DomainPerformance from "../components/dashboard/DomainPerformance";
+import RecentAttempts from "../components/dashboard/RecentAttempts";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -69,35 +70,10 @@ function Dashboard() {
       </div>
 
       <Card className="dashboard-card">
-        <h2>Recent Attempts</h2>
-        <Card className="dashboard-card">
-          <h2>Domain Performance</h2>
-
-          <DomainPerformance domains={domains} />
-        </Card>
-        {history.length === 0 ? (
-          <p>No quiz attempts yet.</p>
-        ) : (
-          <div className="attempt-list">
-            {history.slice(0, 5).map((attempt) => {
-              const percentage = Math.round(
-                (attempt.score / attempt.total_questions) * 100
-              );
-
-              return (
-                <div className="attempt-item" key={attempt.id}>
-                  <span>{percentage}%</span>
-                  <span>
-                    {attempt.score} / {attempt.total_questions}
-                  </span>
-                  <span>
-                    {new Date(attempt.created_at).toLocaleDateString()}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
+        <RecentAttempts history={history}/>
+      </Card>
+      <Card className="dashboard-card">
+        <DomainPerformance domains ={domains}/>
       </Card>
     </Layout>
   );

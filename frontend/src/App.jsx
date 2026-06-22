@@ -15,6 +15,7 @@ import Quiz from "./pages/Quiz";
 import Register from "./pages/Register";
 import Results from "./pages/Results";
 
+
 function App() {
   return (
     <BrowserRouter>
