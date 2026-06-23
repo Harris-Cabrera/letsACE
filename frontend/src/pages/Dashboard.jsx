@@ -60,12 +60,15 @@ function Dashboard() {
       <Card className="dashboard-card">
         <StatGrid stats={stats} />
       </Card>
-      <Card className="dashboard-card">
-        <RecentAttempts history={history} />
-      </Card>
-      <Card className="dashboard-card">
-        <DomainPerformance domains={domains} />
-      </Card>
+      <div className="dashboard-columns">
+        <Card className="dashboard-card">
+          <RecentAttempts history={history} />
+        </Card>
+        <Card className="dashboard-card">
+          <DomainPerformance domains={domains} />
+        </Card>
+      </div>
+
     </Layout>
   );
 }
