@@ -5,9 +5,10 @@ import API from "../api";
 
 import Card from "../components/Card";
 import Layout from "../components/Layout";
-import StatCard from "../components/StatCard";
 import DomainPerformance from "../components/dashboard/DomainPerformance";
 import RecentAttempts from "../components/dashboard/RecentAttempts";
+import StatGrid from "../components/dashboard/StatGrid";
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -56,24 +57,19 @@ function Dashboard() {
       <Card className="dashboard-card">
         <h1>letsACE Dashboard</h1>
         <p>Welcome back.</p>
-
         <div className="button-row" style={{ marginTop: "24px" }}>
           <button onClick={() => navigate("/quiz")}>Start Quiz</button>
         </div>
       </Card>
 
-      <div className="stats-grid">
-        <StatCard title="Total Quizzes" value={stats.total_attempts} />
-        <StatCard title="Accuracy" value={`${stats.accuracy.toFixed(1)}%`} />
-        <StatCard title="Best Score" value={`${stats.best_score}%`} />
-        <StatCard title="Questions Answered" value={stats.questions_answered} />
-      </div>
-
       <Card className="dashboard-card">
-        <RecentAttempts history={history}/>
+        <StatGrid stats={stats} />
       </Card>
       <Card className="dashboard-card">
-        <DomainPerformance domains ={domains}/>
+        <RecentAttempts history={history} />
+      </Card>
+      <Card className="dashboard-card">
+        <DomainPerformance domains={domains} />
       </Card>
     </Layout>
   );
