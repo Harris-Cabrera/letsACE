@@ -5,10 +5,10 @@ import API from "../api";
 
 import Card from "../components/Card";
 import Layout from "../components/Layout";
+import DashboardHeader from "../components/dashboard/DashboardHeader";
 import DomainPerformance from "../components/dashboard/DomainPerformance";
 import RecentAttempts from "../components/dashboard/RecentAttempts";
 import StatGrid from "../components/dashboard/StatGrid";
-
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -55,13 +55,8 @@ function Dashboard() {
   return (
     <Layout>
       <Card className="dashboard-card">
-        <h1>letsACE Dashboard</h1>
-        <p>Welcome back.</p>
-        <div className="button-row" style={{ marginTop: "24px" }}>
-          <button onClick={() => navigate("/quiz")}>Start Quiz</button>
-        </div>
+        <DashboardHeader />
       </Card>
-
       <Card className="dashboard-card">
         <StatGrid stats={stats} />
       </Card>
