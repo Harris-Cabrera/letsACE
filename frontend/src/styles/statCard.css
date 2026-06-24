@@ -18,3 +18,17 @@
     font-weight: 700;
     color: white;
 }
+
+.stat-icon {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+.stat-title {
+    margin-bottom: 12px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
