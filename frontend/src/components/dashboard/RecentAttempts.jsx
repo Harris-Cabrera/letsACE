@@ -1,40 +1,21 @@
-function formatAttemptDate(dateString) {
-    const date = new Date(dateString);
-    const today = new Date();
+import "../../styles/emptyState.css";
 
-    const todayOnly = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate()
-    );
 
-    const dateOnly = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate()
-    );
-
-    const diffInDays = Math.floor(
-        (todayOnly - dateOnly) / (1000 * 60 * 60 * 24)
-    );
-
-    if (diffInDays === 0) return "Today";
-    if (diffInDays === 1) return "Yesterday";
-
-    return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-    });
-}
+import { useNavigate } from "react-router-dom";
 
 function RecentAttempts({ history }) {
+    const navigate = useNavigate();
+
     return (
         <>
             <h2>Recent Attempts</h2>
 
             {history.length === 0 ? (
-                <p>No quiz attempts yet.</p>
-            ) : (
+                <div className="empty-state">
+                    <div className="empty-icon">🎉</div>
+                    <p>Complete your first quiz to start tracking your progress.</p>
+                    <button onClick={() => navigate("/quiz")}>Start Quiz</button>
+                </div>) : (
                 <div className="attempt-table">
                     <div className="attempt-row attempt-header">
                         <span>Score</span>
@@ -65,4 +46,32 @@ function RecentAttempts({ history }) {
     );
 }
 
+function formatAttemptDate(dateString) {
+    const date = new Date(dateString);
+    const today = new Date();
+
+    const todayOnly = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+    );
+
+    const dateOnly = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+    );
+
+    const diffInDays = Math.floor(
+        (todayOnly - dateOnly) / (1000 * 60 * 60 * 24)
+    );
+
+    if (diffInDays === 0) return "Today";
+    if (diffInDays === 1) return "Yesterday";
+
+    return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+    });
+}
 export default RecentAttempts;
