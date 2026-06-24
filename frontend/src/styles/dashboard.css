@@ -85,3 +85,12 @@
   color: var(--text-secondary);
   font-weight: 600;
 }
+
+.dashboard-card {
+  transition: all .2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .35);
+}
