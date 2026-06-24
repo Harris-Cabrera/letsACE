@@ -55,7 +55,7 @@ function Dashboard() {
   return (
     <Layout>
       <Card className="dashboard-card">
-        <DashboardHeader />
+        <DashboardHeader stats = {stats}/>
       </Card>
       <Card className="dashboard-card">
         <StatGrid stats={stats} />

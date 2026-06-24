@@ -1,18 +1,24 @@
 import { useNavigate } from "react-router-dom";
 
-function DashboardHeader() {
+function DashboardHeader({ stats }) {
     const navigate = useNavigate();
 
     return (
-        <>
-            <h1>letsACE Dashboard</h1>
-            <p>Welcome back.</p>
-            <div className="button-row" style={{ marginTop: "24px" }}>
-                <button onClick={() => navigate("/quiz")}>
-                    Start Quiz
-                </button>
+        <div className="dashboard-header-content">
+            <div>
+                <h1>
+                    letsACE Dashboard
+                </h1>
+                <p>
+                    Progress: {stats.accuracy.toFixed(2)}%
+                </p>
             </div>
-        </>
+
+            <button className="start-quiz-button"
+                onClick={() => navigate("/quiz")}>
+                Start Quiz
+            </button>
+        </div>
     );
 }
 
