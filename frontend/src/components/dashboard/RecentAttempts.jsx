@@ -1,3 +1,32 @@
+function formatAttemptDate(dateString) {
+    const date = new Date(dateString);
+    const today = new Date();
+
+    const todayOnly = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+    );
+
+    const dateOnly = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+    );
+
+    const diffInDays = Math.floor(
+        (todayOnly - dateOnly) / (1000 * 60 * 60 * 24)
+    );
+
+    if (diffInDays === 0) return "Today";
+    if (diffInDays === 1) return "Yesterday";
+
+    return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+    });
+}
+
 function RecentAttempts({ history }) {
     return (
         <>
@@ -25,7 +54,7 @@ function RecentAttempts({ history }) {
                                     {attempt.score} / {attempt.total_questions}
                                 </span>
                                 <span>
-                                    {new Date(attempt.created_at).toLocaleDateString()}
+                                    {formatAttemptDate(attempt.created_at)}
                                 </span>
                             </div>
                         );
