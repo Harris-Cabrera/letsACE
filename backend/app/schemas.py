@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-
+from datetime import datetime
 
 class DashboardStats(BaseModel):
     total_attempts: int
@@ -62,6 +62,32 @@ class UserLogin(BaseModel):
 class UserResponse(BaseModel):
     id: int
     email: EmailStr
+
+    class Config:
+        from_attributes = True
+
+
+class ReviewAnswer(BaseModel):
+    question_id: int
+    domain: str
+    question_text: str
+    option_a: str
+    option_b: str
+    option_c: str
+    option_d: str
+    selected_answer: str
+    correct_answer: str
+    is_correct: bool
+    explanation: str
+
+
+class QuizAttemptReview(BaseModel):
+    attempt_id: int
+    score: int
+    total: int
+    percentage: float
+    created_at: datetime
+    answers: list[ReviewAnswer]
 
     class Config:
         from_attributes = True
