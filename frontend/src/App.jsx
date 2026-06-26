@@ -14,7 +14,7 @@ import Login from "./pages/Login";
 import Quiz from "./pages/Quiz";
 import Register from "./pages/Register";
 import Results from "./pages/Results";
-
+import Review from "./pages/Review";
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/results" element={<Results />} />
-      </Routes>
+        <Route path="/review/:attemptId" element={<Review />} />      </Routes>
     </BrowserRouter>
   );
 }
