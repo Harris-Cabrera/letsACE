@@ -18,7 +18,7 @@ function AnswerOption({ answer }) {
             </p>
 
             <p>
-                <strong>Explanation:</strong> {answer.explanation}
+                <strong>Explanations:</strong> {answer.explanation}
             </p>
         </Card>
     );

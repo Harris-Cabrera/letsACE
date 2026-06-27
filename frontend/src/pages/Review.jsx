@@ -4,8 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import API from "../api";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
-import AnswerOption from "../components/review/AnswerOption";
-import ReviewSummary from "../components/review/reviewSummary";
+import ReviewSummary from "../components/review/ReviewSummary";
+import ReviewCard from "../components/review/reviewCard";
 
 function Review() {
     const { attemptId } = useParams();
@@ -23,12 +23,7 @@ function Review() {
                     return;
                 }
 
-                const response = await API.get(`/history/${attemptId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-
+                const response = await API.get(`/history/${attemptId}`);
                 setReview(response.data);
             } catch (err) {
                 console.error(err);
@@ -43,7 +38,7 @@ function Review() {
         return (
             <Layout>
                 <Card>
-                    <p>Loading...</p>
+                    <p>Loading review...</p>
                 </Card>
             </Layout>
         );
@@ -51,16 +46,15 @@ function Review() {
 
     return (
         <Layout>
-
             <ReviewSummary review={review} />
 
-            {review.answers.map((answer) => (
-                <AnswerOption
+            {review.answers.map((answer, index) => (
+                <ReviewCard
                     key={answer.question_id}
                     answer={answer}
+                    index={index}
                 />
             ))}
-
         </Layout>
     );
 }
