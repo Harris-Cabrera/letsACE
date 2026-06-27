@@ -10,7 +10,7 @@ function ReviewSummary({ review }) {
             </p>
 
             <p>
-                <strong>Percentage:</strong> {review.percentage.toFixed(1)}%
+                <strong>Accuracy:</strong> {review.percentage.toFixed(1)}%
             </p>
         </Card>
     );

@@ -57,7 +57,7 @@ function ReviewCard({ answer, index }) {
 
             </div>
 
-            <div className="review-footer">
+            <div className="status-badge">
 
                 {answer.is_correct ? (
                     <span className="review-result correct">
@@ -69,10 +69,12 @@ function ReviewCard({ answer, index }) {
                     </span>
                 )}
 
-                <p className="review-explanation">
-                    <strong>Explanation:</strong>{" "}
-                    {answer.explanation}
-                </p>
+            </div>
+            <div className="explanation-box">
+
+                <h3>💡 Explanation</h3>
+
+                <p>{answer.explanation}</p>
 
             </div>
 
