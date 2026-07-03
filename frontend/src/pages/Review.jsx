@@ -4,8 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import API from "../api";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
+import ReviewCard from "../components/review/ReviewCard";
 import ReviewSummary from "../components/review/ReviewSummary";
-import ReviewCard from "../components/review/reviewCard";
+
+
+import "../styles/review.css";
 
 function Review() {
     const { attemptId } = useParams();

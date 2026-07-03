@@ -111,3 +111,18 @@
     line-height: 1.7;
 
 }
+
+.review-summary-grid {
+    display: flex;
+    gap: 40px;
+    margin-top: 24px;
+}
+
+.summary-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.review-summary-grid h2 {
+    margin-top: 8px;
+}
