@@ -9,10 +9,11 @@ router = APIRouter(prefix="/quiz", tags=["Quiz"])
 
 
 @router.post("/submit", response_model=schemas.QuizResult)
-def submit_quiz(submission: schemas.QuizSubmission, 
-                db: Session = Depends(get_db),
-                current_user: models.User = Depends(get_current_user)
-                ):
+def submit_quiz(
+    submission: schemas.QuizSubmission,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
     score = 0
     total = len(submission.answers)
     answer_results = []
@@ -41,7 +42,9 @@ def submit_quiz(submission: schemas.QuizSubmission,
             }
         )
 
-    new_attempt = models.QuizAttempt(user_id=current_user.id, score=score, total_questions=total)
+    new_attempt = models.QuizAttempt(
+        user_id=current_user.id, score=score, total_questions=total
+    )
 
     db.add(new_attempt)
     db.commit()
@@ -60,4 +63,9 @@ def submit_quiz(submission: schemas.QuizSubmission,
 
     percentage = (score / total * 100) if total > 0 else 0
 
-    return {"score": score, "total": total, "percentage": percentage}
+    return {
+        "attempt_id": new_attempt.id,
+        "score": score,
+        "total": total,
+        "percentage": percentage,
+    }

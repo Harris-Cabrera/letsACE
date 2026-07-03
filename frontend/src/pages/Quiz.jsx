@@ -68,6 +68,8 @@ function Quiz() {
         try {
             const token = localStorage.getItem("token");
 
+            console.log("Submitting answers:", finalAnswers);
+
             const response = await axios.post(
                 "http://127.0.0.1:8000/quiz/submit",
                 {

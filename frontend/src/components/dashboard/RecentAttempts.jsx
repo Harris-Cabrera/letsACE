@@ -1,7 +1,8 @@
 import "../../styles/emptyState.css";
-
+import "../../styles/recentAttempts.css";
 
 import { useNavigate } from "react-router-dom";
+
 
 function RecentAttempts({ history }) {
     const navigate = useNavigate();
@@ -31,12 +32,11 @@ function RecentAttempts({ history }) {
                         return (
                             <div className="attempt-row" key={attempt.id}>
                                 <span>{percentage}%</span>
-                                <span>
-                                    {attempt.score} / {attempt.total_questions}
-                                </span>
-                                <span>
-                                    {formatAttemptDate(attempt.created_at)}
-                                </span>
+                                <span>{attempt.score} / {attempt.total_questions}</span>
+                                <span>{formatAttemptDate(attempt.created_at)}</span>
+                                <button onClick={() => navigate(`/review/${attempt.id}`)}>
+                                    Review →
+                                </button>
                             </div>
                         );
                     })}

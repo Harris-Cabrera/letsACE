@@ -35,6 +35,7 @@ class QuizAnswer(BaseModel):
 
 
 class QuizResult(BaseModel):
+    attempt_id: int
     score: int
     total: int
     percentage: float
