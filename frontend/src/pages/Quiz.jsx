@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import AnswerCard from "../components/AnswerCard";
 import Card from "../components/Card";
@@ -9,8 +9,11 @@ import ProgressBar from "../components/ProgressBard";
 
 function Quiz() {
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const [questions, setQuestions] = useState([]);
+    const mode = location.state?.mode;
+
+    const [questions, setQuestions] = useState(location.state?.questions || []);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [answers, setAnswers] = useState([]);
     const [selectedAnswer, setSelectedAnswer] = useState("");
@@ -21,6 +24,12 @@ function Quiz() {
 
         if (!token) {
             navigate("/login");
+            return;
+        }
+
+        if (location.state?.questions) {
+            setQuestions(location.state.questions);
+            setLoading(false);
             return;
         }
 
@@ -39,7 +48,7 @@ function Quiz() {
         };
 
         fetchQuestions();
-    }, [navigate]);
+    }, [navigate, location.state]);
 
     const handleNext = () => {
         if (!selectedAnswer) return;
@@ -74,6 +83,7 @@ function Quiz() {
                 "http://127.0.0.1:8000/quiz/submit",
                 {
                     answers: finalAnswers,
+                    mode: mode || "practice",
                 },
                 {
                     headers: {
@@ -104,7 +114,7 @@ function Quiz() {
                 <div className="domain-badge">
                     {question.domain}
                 </div>
-                <p>
+                <div>
                     Question {currentIndex + 1} of {questions.length}
                     <ProgressBar
                         current={currentIndex + 1}
@@ -113,7 +123,7 @@ function Quiz() {
                     <p className="progress-text">
                         {Math.round(((currentIndex + 1) / questions.length) * 100)}% Complete
                     </p>
-                </p>
+                </div>
 
                 <h2 className="question-title">
                     {question.question_text}

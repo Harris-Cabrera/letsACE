@@ -6,15 +6,14 @@ import API from "../api";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
 
+
 function QuizSettings() {
     const navigate = useNavigate();
 
     const [domains, setDomains] = useState([
         "General Security Concepts",
-        "Threats & Vulnerabilities",
-        "Architecture",
-        "Operations",
-        "Governance",
+        "Threats, Vulnerabilities, and Mitigations",
+        "Security Architecture",
     ]);
 
     const [limit, setLimit] = useState(5);
@@ -34,15 +33,14 @@ function QuizSettings() {
 
     const startQuiz = async () => {
         try {
-            const response = await API.post(
-                "/quiz/create",
-                {
-                    domains,
-                    limit,
-                    mode,
-                }
-            );
+            const response = await API.post("/quiz/create", {
+                domains,
+                limit,
+                mode,
+            });
 
+            console.log("Quiz create response:", response.data);
+            console.log("Question count:", response.data.length);
 
             navigate("/quiz", {
                 state: {
@@ -50,8 +48,6 @@ function QuizSettings() {
                     mode,
                 },
             });
-
-
         } catch (error) {
             console.error(error);
         }
@@ -69,10 +65,8 @@ function QuizSettings() {
 
                 {[
                     "General Security Concepts",
-                    "Threats & Vulnerabilities",
-                    "Architecture",
-                    "Operations",
-                    "Governance",
+                    "Threats, Vulnerabilities, and Mitigations",
+                    "Security Architecture",
                 ].map((domain) => (
                     <label key={domain}>
                         <input

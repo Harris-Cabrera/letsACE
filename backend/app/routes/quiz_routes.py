@@ -72,12 +72,30 @@ def submit_quiz(
     }
 
 
+# @router.post("/create")
+# def create_quiz(
+#     quiz: schemas.QuizCreate,
+#     db: Session = Depends(get_db),
+#     current_user: models.User = Depends(get_current_user),
+# ):
+
+#     questions = (
+#         db.query(models.Question)
+#         .filter(models.Question.domain.in_(quiz.domains))
+#         .order_by(func.random())
+#         .limit(quiz.limit)
+#         .all()
+#     )
+
+
 @router.post("/create")
 def create_quiz(
     quiz: schemas.QuizCreate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_user),
 ):
+    print("Requested domains:", quiz.domains)
+    print("Requested limit:", quiz.limit)
 
     questions = (
         db.query(models.Question)
@@ -86,5 +104,8 @@ def create_quiz(
         .limit(quiz.limit)
         .all()
     )
+
+    print("Questions returned:", len(questions))
+    print("Domains returned:", [q.domain for q in questions])
 
     return questions
