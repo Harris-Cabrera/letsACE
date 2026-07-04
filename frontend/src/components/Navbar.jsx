@@ -17,7 +17,7 @@ function Navbar() {
 
             <div className="navbar-links">
                 <Link to="/dashboard">Dashboard</Link>
-                <Link to="/quiz">Practice</Link>
+                <Link to="/quiz/settings">Practice</Link>
 
                 <button className="logout-button" onClick={handleLogout}>
                     Logout

@@ -32,7 +32,7 @@ function DashboardHeader({ stats, history }) {
 
             <button
                 className="start-quiz-button"
-                onClick={() => navigate("/quiz")}
+                onClick={() => navigate("/quiz/settings")}
             >
                 🚀 Start Quiz
             </button>
