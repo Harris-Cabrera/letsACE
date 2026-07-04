@@ -26,7 +26,7 @@ function DashboardHeader({ stats, history }) {
                 <p>{greeting}</p>
 
                 <p>
-                    Progress: {stats.accuracy.toFixed(1)}% Accuracy
+                    Progress: {stats.accuracy.toFixed(2)}% Accuracy
                 </p>
             </div>
 

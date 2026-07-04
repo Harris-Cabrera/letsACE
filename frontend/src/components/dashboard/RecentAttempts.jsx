@@ -1,8 +1,5 @@
-import "../../styles/emptyState.css";
-import "../../styles/recentAttempts.css";
-
 import { useNavigate } from "react-router-dom";
-
+import "../../styles/emptyState.css";
 
 function RecentAttempts({ history }) {
     const navigate = useNavigate();
@@ -16,12 +13,14 @@ function RecentAttempts({ history }) {
                     <div className="empty-icon">🎉</div>
                     <p>Complete your first quiz to start tracking your progress.</p>
                     <button onClick={() => navigate("/quiz")}>Start Quiz</button>
-                </div>) : (
+                </div>
+            ) : (
                 <div className="attempt-table">
                     <div className="attempt-row attempt-header">
                         <span>Score</span>
                         <span>Correct</span>
                         <span>Date</span>
+                        <span>Review</span>
                     </div>
 
                     {history.slice(0, 5).map((attempt) => {
@@ -32,9 +31,15 @@ function RecentAttempts({ history }) {
                         return (
                             <div className="attempt-row" key={attempt.id}>
                                 <span>{percentage}%</span>
-                                <span>{attempt.score} / {attempt.total_questions}</span>
-                                <span>{formatAttemptDate(attempt.created_at)}</span>
-                                <button onClick={() => navigate(`/review/${attempt.id}`)}>
+                                <span>
+                                    {attempt.score}/{attempt.total_questions}
+                                </span>
+                                <span>
+                                    {new Date(attempt.created_at).toLocaleDateString()}
+                                </span>
+                                <button
+                                    onClick={() => navigate(`/review/${attempt.id}`)}
+                                >
                                     Review →
                                 </button>
                             </div>
@@ -46,32 +51,4 @@ function RecentAttempts({ history }) {
     );
 }
 
-function formatAttemptDate(dateString) {
-    const date = new Date(dateString);
-    const today = new Date();
-
-    const todayOnly = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate()
-    );
-
-    const dateOnly = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate()
-    );
-
-    const diffInDays = Math.floor(
-        (todayOnly - dateOnly) / (1000 * 60 * 60 * 24)
-    );
-
-    if (diffInDays === 0) return "Today";
-    if (diffInDays === 1) return "Yesterday";
-
-    return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-    });
-}
 export default RecentAttempts;

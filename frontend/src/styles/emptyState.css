@@ -14,3 +14,10 @@
 .empty-state button {
   margin-top: 16px;
 }
+
+.attempt-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    align-items: center;
+    gap: 16px;
+}
