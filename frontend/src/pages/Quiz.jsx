@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -27,27 +26,13 @@ function Quiz() {
             return;
         }
 
-        if (location.state?.questions) {
-            setQuestions(location.state.questions);
-            setLoading(false);
+        if (!location.state?.questions) {
+            navigate("/quiz/settings");
             return;
         }
 
-        const fetchQuestions = async () => {
-            try {
-                const response = await axios.get(
-                    "http://127.0.0.1:8000/questions/random?limit=5"
-                );
-
-                setQuestions(response.data);
-            } catch (error) {
-                console.error("Failed to fetch questions:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchQuestions();
+        setQuestions(location.state.questions);
+        setLoading(false);
     }, [navigate, location.state]);
 
     const handleNext = () => {
@@ -75,24 +60,10 @@ function Quiz() {
 
     const submitQuiz = async (finalAnswers) => {
         try {
-            const token = localStorage.getItem("token");
-
-            console.log("Submitting answers:", finalAnswers);
-
-            const response = await axios.post(
-                "http://127.0.0.1:8000/quiz/submit",
-                {
-                    answers: finalAnswers,
-                    mode: mode || "practice",
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-
-            navigate("/results", { state: response.data });
+            const response = await API.post("/quiz/submit", {
+                answers: finalAnswers,
+                mode: mode || "practice",
+            });
         } catch (error) {
             console.error("Failed to submit quiz:", error);
             console.error("Status:", error.response?.status);
@@ -111,6 +82,11 @@ function Quiz() {
         <Layout>
             <Card className="quiz-card">
                 <h1>Quiz</h1>
+
+                <div className="mode-badge">
+                    {mode === "exam" ? "Exam Simulation" : "Practice Mode"}
+                </div>
+
                 <div className="domain-badge">
                     {question.domain}
                 </div>

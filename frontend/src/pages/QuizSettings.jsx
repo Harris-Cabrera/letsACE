@@ -18,7 +18,7 @@ function QuizSettings() {
 
     const [limit, setLimit] = useState(5);
     const [mode, setMode] = useState("practice");
-
+    const [error, setError] = useState("");
 
     const toggleDomain = (domain) => {
         if (domains.includes(domain)) {
@@ -32,15 +32,19 @@ function QuizSettings() {
 
 
     const startQuiz = async () => {
+        if (domains.length === 0) {
+            setError("Please select at least one domain.");
+            return;
+        }
+
+        setError("");
+
         try {
             const response = await API.post("/quiz/create", {
                 domains,
                 limit,
                 mode,
             });
-
-            console.log("Quiz create response:", response.data);
-            console.log("Question count:", response.data.length);
 
             navigate("/quiz", {
                 state: {
@@ -50,6 +54,7 @@ function QuizSettings() {
             });
         } catch (error) {
             console.error(error);
+            setError("Failed to create quiz.");
         }
     };
 
@@ -61,23 +66,22 @@ function QuizSettings() {
                 <h1>Configure Quiz</h1>
 
 
-                <h3>Domains</h3>
-
-                {[
-                    "General Security Concepts",
-                    "Threats, Vulnerabilities, and Mitigations",
-                    "Security Architecture",
-                ].map((domain) => (
-                    <label key={domain}>
-                        <input
-                            type="checkbox"
-                            checked={domains.includes(domain)}
-                            onChange={() => toggleDomain(domain)}
-                        />
-
-                        {domain}
-                    </label>
-                ))}
+                <div className="quiz-settings-options">
+                    {[
+                        "General Security Concepts",
+                        "Threats, Vulnerabilities, and Mitigations",
+                        "Security Architecture",
+                    ].map((domain) => (
+                        <label key={domain}>
+                            <input
+                                type="checkbox"
+                                checked={domains.includes(domain)}
+                                onChange={() => toggleDomain(domain)}
+                            />
+                            {domain}
+                        </label>
+                    ))}
+                </div>
 
 
 
@@ -118,6 +122,7 @@ function QuizSettings() {
 
                 <br /><br />
 
+                {error && <p className="settings-error">{error}</p>}
 
                 <button onClick={startQuiz}>
                     Start Quiz
