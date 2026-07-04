@@ -1,5 +1,7 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
+from typing import List, Optional
+
 
 class DashboardStats(BaseModel):
     total_attempts: int
@@ -92,3 +94,9 @@ class QuizAttemptReview(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class QuizCreate(BaseModel):
+    domains: List[str]
+    limit: int
+    mode: str

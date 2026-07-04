@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from app.database import get_db
 from app import models, schemas
@@ -69,3 +70,21 @@ def submit_quiz(
         "total": total,
         "percentage": percentage,
     }
+
+
+@router.post("/create")
+def create_quiz(
+    quiz: schemas.QuizCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user),
+):
+
+    questions = (
+        db.query(models.Question)
+        .filter(models.Question.domain.in_(quiz.domains))
+        .order_by(func.random())
+        .limit(quiz.limit)
+        .all()
+    )
+
+    return questions
