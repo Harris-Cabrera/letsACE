@@ -110,29 +110,42 @@ function Quiz() {
                         label="A"
                         text={question.option_a}
                         selected={selectedAnswer === "A"}
-                        onClick={() => setSelectedAnswer("A")}
+                        onClick={() => {
+                            if (!showFeedback) {
+                                setSelectedAnswer("A");
+                            }
+                        }}
                     />
 
                     <AnswerCard
                         label="B"
                         text={question.option_b}
                         selected={selectedAnswer === "B"}
-                        onClick={() => setSelectedAnswer("B")}
-                    />
+                        onClick={() => {
+                            if (!showFeedback) {
+                                setSelectedAnswer("B");
+                            }
+                        }} />
 
                     <AnswerCard
                         label="C"
                         text={question.option_c}
                         selected={selectedAnswer === "C"}
-                        onClick={() => setSelectedAnswer("C")}
-                    />
+                        onClick={() => {
+                            if (!showFeedback) {
+                                setSelectedAnswer("C");
+                            }
+                        }} />
 
                     <AnswerCard
                         label="D"
                         text={question.option_d}
                         selected={selectedAnswer === "D"}
-                        onClick={() => setSelectedAnswer("D")}
-                    />
+                        onClick={() => {
+                            if (!showFeedback) {
+                                setSelectedAnswer("D");
+                            }
+                        }} />
                 </div>
                 <div className="quiz-actions">
                     <button onClick={handleNext} disabled={!selectedAnswer}>
