@@ -39,3 +39,8 @@
 
     margin-top: 40px;
 }
+
+.active-option {
+    border: 2px solid #93c5fd;
+    background: #1d4ed8;
+}

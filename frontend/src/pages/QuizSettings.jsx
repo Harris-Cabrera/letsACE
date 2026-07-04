@@ -86,6 +86,7 @@ function QuizSettings() {
                 {[5, 10, 25, 50].map((num) => (
                     <button
                         key={num}
+                        className={limit === num ? "active-option" : ""}
                         onClick={() => setLimit(num)}
                     >
                         {num}
