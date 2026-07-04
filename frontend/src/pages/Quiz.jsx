@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import API from "../api";
 import AnswerCard from "../components/AnswerCard";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
-import ProgressBar from "../components/ProgressBard";
+import FeedbackBox from "../components/quiz/FeedbackBox";
+import QuizHeader from "../components/quiz/QuizHeader";
 
 function Quiz() {
     const navigate = useNavigate();
@@ -16,6 +18,7 @@ function Quiz() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [answers, setAnswers] = useState([]);
     const [selectedAnswer, setSelectedAnswer] = useState("");
+    const [showFeedback, setShowFeedback] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -38,6 +41,11 @@ function Quiz() {
     const handleNext = () => {
         if (!selectedAnswer) return;
 
+        if (mode === "practice" && !showFeedback) {
+            setShowFeedback(true);
+            return;
+        }
+
         const currentQuestion = questions[currentIndex];
 
         const updatedAnswers = [
@@ -50,6 +58,7 @@ function Quiz() {
 
         setAnswers(updatedAnswers);
         setSelectedAnswer("");
+        setShowFeedback(false);
 
         if (currentIndex + 1 < questions.length) {
             setCurrentIndex(currentIndex + 1);
@@ -64,6 +73,9 @@ function Quiz() {
                 answers: finalAnswers,
                 mode: mode || "practice",
             });
+
+            navigate("/results", { state: response.data });
+
         } catch (error) {
             console.error("Failed to submit quiz:", error);
             console.error("Status:", error.response?.status);
@@ -81,25 +93,12 @@ function Quiz() {
     return (
         <Layout>
             <Card className="quiz-card">
-                <h1>Quiz</h1>
-
-                <div className="mode-badge">
-                    {mode === "exam" ? "Exam Simulation" : "Practice Mode"}
-                </div>
-
-                <div className="domain-badge">
-                    {question.domain}
-                </div>
-                <div>
-                    Question {currentIndex + 1} of {questions.length}
-                    <ProgressBar
-                        current={currentIndex + 1}
-                        total={questions.length}
-                    />
-                    <p className="progress-text">
-                        {Math.round(((currentIndex + 1) / questions.length) * 100)}% Complete
-                    </p>
-                </div>
+                <QuizHeader
+                    mode={mode}
+                    question={question}
+                    currentIndex={currentIndex}
+                    totalQuestions={questions.length}
+                />
 
                 <h2 className="question-title">
                     {question.question_text}
@@ -137,8 +136,18 @@ function Quiz() {
                 </div>
                 <div className="quiz-actions">
                     <button onClick={handleNext} disabled={!selectedAnswer}>
-                        {currentIndex + 1 === questions.length ? "Submit Quiz" : "Next →"}
+                        {mode === "practice" && !showFeedback
+                            ? "Check Answer"
+                            : currentIndex + 1 === questions.length
+                                ? "Submit Quiz"
+                                : "Next →"}
                     </button>
+                    {showFeedback && (
+                        <FeedbackBox
+                            selectedAnswer={selectedAnswer}
+                            question={question}
+                        />
+                    )}
                 </div>
             </Card>
         </Layout>
