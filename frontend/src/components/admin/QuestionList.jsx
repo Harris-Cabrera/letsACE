@@ -1,6 +1,6 @@
 import Card from "../Card";
 
-function QuestionList({ questions }) {
+function QuestionList({ questions, onDelete }) {
     return (
         <div>
             {questions.map((question) => (
@@ -15,6 +15,13 @@ function QuestionList({ questions }) {
                     <p>B. {question.option_b}</p>
                     <p>C. {question.option_c}</p>
                     <p>D. {question.option_d}</p>
+
+                    <button
+                        onClick={() => onDelete(question.id)}
+                    >
+                        Delete
+                    </button>
+
                 </Card>
             ))}
         </div>

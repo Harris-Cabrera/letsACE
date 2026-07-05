@@ -28,6 +28,22 @@ function AdminQuestions() {
             console.error(err);
         }
     };
+
+    const deleteQuestion = async (id) => {
+        try {
+            await API.delete(`/questions/${id}`);
+
+            setQuestions(
+                questions.filter(
+                    question => question.id !== id
+                )
+            );
+
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(() => {
         const verifyAdmin = async () => {
             try {
@@ -63,8 +79,10 @@ function AdminQuestions() {
                 <QuestionForm onCreate={createQuestion} />
             </Card>
 
-            <QuestionList questions={questions} />
-        </Layout>
+            <QuestionList
+                questions={questions}
+                onDelete={deleteQuestion}
+            />        </Layout>
     );
 }
 
