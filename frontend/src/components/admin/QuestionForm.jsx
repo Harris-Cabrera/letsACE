@@ -1,0 +1,110 @@
+import { useState } from "react";
+
+function QuestionForm({ onCreate }) {
+    const [form, setForm] = useState({
+        domain: "",
+        question_text: "",
+        option_a: "",
+        option_b: "",
+        option_c: "",
+        option_d: "",
+        correct_answer: "",
+        explanation: "",
+    });
+
+
+    const handleChange = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        onCreate(form);
+
+        setForm({
+            domain: "",
+            question_text: "",
+            option_a: "",
+            option_b: "",
+            option_c: "",
+            option_d: "",
+            correct_answer: "",
+            explanation: "",
+        });
+    };
+
+
+    return (
+        <form onSubmit={handleSubmit}>
+
+            <input
+                name="domain"
+                placeholder="Domain"
+                value={form.domain}
+                onChange={handleChange}
+            />
+
+            <textarea
+                name="question_text"
+                placeholder="Question"
+                value={form.question_text}
+                onChange={handleChange}
+            />
+
+            <input
+                name="option_a"
+                placeholder="Option A"
+                value={form.option_a}
+                onChange={handleChange}
+            />
+
+            <input
+                name="option_b"
+                placeholder="Option B"
+                value={form.option_b}
+                onChange={handleChange}
+            />
+
+            <input
+                name="option_c"
+                placeholder="Option C"
+                value={form.option_c}
+                onChange={handleChange}
+            />
+
+            <input
+                name="option_d"
+                placeholder="Option D"
+                value={form.option_d}
+                onChange={handleChange}
+            />
+
+            <input
+                name="correct_answer"
+                placeholder="Correct Answer (A/B/C/D)"
+                value={form.correct_answer}
+                onChange={handleChange}
+            />
+
+            <textarea
+                name="explanation"
+                placeholder="Explanation"
+                value={form.explanation}
+                onChange={handleChange}
+            />
+
+            <button type="submit">
+                Add Question
+            </button>
+
+        </form>
+    );
+}
+
+
+export default QuestionForm;
