@@ -100,3 +100,13 @@ class QuizCreate(BaseModel):
     domains: List[str]
     limit: int
     mode: str
+
+class QuestionCreate(BaseModel):
+    domain: str
+    question_text: str
+    option_a: str
+    option_b: str
+    option_c: str
+    option_d: str
+    correct_answer: str
+    explanation: str

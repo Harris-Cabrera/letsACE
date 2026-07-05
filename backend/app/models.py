@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean, Float
 from sqlalchemy.sql import func
-from app.routes import question_routes
+from sqlalchemy.orm import relationship
 
 from app.database import Base
 
