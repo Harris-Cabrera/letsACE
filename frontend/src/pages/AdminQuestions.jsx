@@ -17,6 +17,8 @@ function AdminQuestions() {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
+    const [loading, setLoading] = useState(true);
+
 
     const createQuestion = async (question) => {
         try {
@@ -42,6 +44,14 @@ function AdminQuestions() {
     };
 
     const deleteQuestion = async (id) => {
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this question?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
         try {
             await API.delete(`/questions/${id}`);
 
@@ -112,13 +122,24 @@ function AdminQuestions() {
             } catch (err) {
                 console.error(err);
                 navigate("/login");
+            } finally {
+                setLoading(false);
             }
+
         };
 
         verifyAdmin();
     }, [navigate]);
 
-
+    if (loading) {
+        return (
+            <Layout>
+                <Card>
+                    <p>Loading questions...</p>
+                </Card>
+            </Layout>
+        );
+    }
     return (
         <Layout>
             <Card>
@@ -153,11 +174,17 @@ function AdminQuestions() {
                 />
             </Card>
 
-            <QuestionList
-                questions={filteredQuestions}
-                onDelete={deleteQuestion}
-                onEdit={setEditingQuestion}
-            />
+            {filteredQuestions.length === 0 ? (
+                <Card>
+                    <p>No questions found.</p>
+                </Card>
+            ) : (
+                <QuestionList
+                    questions={filteredQuestions}
+                    onDelete={deleteQuestion}
+                    onEdit={setEditingQuestion}
+                />
+            )}
 
         </Layout>
     );
