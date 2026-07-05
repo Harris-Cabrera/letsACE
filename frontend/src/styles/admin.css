@@ -51,3 +51,18 @@
     color: #ef4444;
     font-weight: 600;
 }
+
+.answer-box {
+    margin-top: 20px;
+    padding: 16px;
+
+    border-radius: 12px;
+
+    background: #111827;
+
+    color: #d1d5db;
+}
+
+.answer-box strong {
+    color: #93c5fd;
+}

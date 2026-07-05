@@ -16,6 +16,18 @@ function QuestionList({ questions, onDelete, onEdit }) {
                     <p>C. {question.option_c}</p>
                     <p>D. {question.option_d}</p>
 
+                    <div className="answer-box">
+                        <p>
+                            <strong>Correct Answer:</strong>{" "}
+                            {question.correct_answer}
+                        </p>
+
+                        <p>
+                            <strong>Explanation:</strong>
+                            <br />
+                            {question.explanation}
+                        </p>
+                    </div>
 
                     <button
                         onClick={() => onEdit(question)}
