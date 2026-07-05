@@ -11,10 +11,12 @@ function AdminQuestions() {
     const navigate = useNavigate();
 
     const [questions, setQuestions] = useState([]);
+    const [search, setSearch] = useState("");
     const [editingQuestion, setEditingQuestion] = useState(null);
 
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+
 
     const createQuestion = async (question) => {
         try {
@@ -83,6 +85,17 @@ function AdminQuestions() {
         }
     };
 
+
+    const filteredQuestions = questions.filter((question) =>
+        question.question_text
+            .toLowerCase()
+            .includes(search.toLowerCase()) ||
+
+        question.domain
+            .toLowerCase()
+            .includes(search.toLowerCase())
+    );
+
     useEffect(() => {
         const verifyAdmin = async () => {
             try {
@@ -122,6 +135,12 @@ function AdminQuestions() {
                         {error}
                     </p>
                 )}
+                <input
+                    className="admin-search"
+                    placeholder="Search questions..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
             </Card>
 
             <Card>
@@ -135,7 +154,7 @@ function AdminQuestions() {
             </Card>
 
             <QuestionList
-                questions={questions}
+                questions={filteredQuestions}
                 onDelete={deleteQuestion}
                 onEdit={setEditingQuestion}
             />
