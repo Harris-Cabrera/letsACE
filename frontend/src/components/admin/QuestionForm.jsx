@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../../styles/admin.css";
 
 function QuestionForm({ onCreate, onUpdate, editingQuestion, onCancelEdit }) {
-    const [form, setForm] = useState({
+    const emptyForm = {
         domain: "",
         question_text: "",
         option_a: "",
@@ -11,24 +11,28 @@ function QuestionForm({ onCreate, onUpdate, editingQuestion, onCancelEdit }) {
         option_d: "",
         correct_answer: "",
         explanation: "",
-    });
+    };
+
+    const [form, setForm] = useState(emptyForm);
 
     useEffect(() => {
         if (editingQuestion) {
-            console.log(editingQuestion);
-
             setForm({
-                domain: editingQuestion.domain,
-                question_text: editingQuestion.question_text,
-                option_a: editingQuestion.option_a,
-                option_b: editingQuestion.option_b,
-                option_c: editingQuestion.option_c,
-                option_d: editingQuestion.option_d,
-                correct_answer: editingQuestion.correct_answer,
-                explanation: editingQuestion.explanation,
+                domain: editingQuestion.domain || "",
+                question_text: editingQuestion.question_text || "",
+                option_a: editingQuestion.option_a || "",
+                option_b: editingQuestion.option_b || "",
+                option_c: editingQuestion.option_c || "",
+                option_d: editingQuestion.option_d || "",
+                correct_answer: editingQuestion.correct_answer || "",
+                explanation: editingQuestion.explanation || "",
             });
         }
     }, [editingQuestion]);
+
+    const clearForm = () => {
+        setForm(emptyForm);
+    };
 
     const handleChange = (e) => {
         setForm({
@@ -37,32 +41,16 @@ function QuestionForm({ onCreate, onUpdate, editingQuestion, onCancelEdit }) {
         });
     };
 
-
     const handleSubmit = (e) => {
-        const clearForm = () => {
-            setForm({
-                domain: "",
-                question_text: "",
-                option_a: "",
-                option_b: "",
-                option_c: "",
-                option_d: "",
-                correct_answer: "",
-                explanation: "",
-            });
-        };
+        e.preventDefault();
 
-        const handleSubmit = (e) => {
-            e.preventDefault();
+        if (editingQuestion) {
+            onUpdate(editingQuestion.id, form);
+        } else {
+            onCreate(form);
+        }
 
-            if (editingQuestion) {
-                onUpdate(editingQuestion.id, form);
-            } else {
-                onCreate(form);
-            }
-
-            clearForm();
-        };
+        clearForm();
     };
 
 
