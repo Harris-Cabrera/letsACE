@@ -13,6 +13,9 @@ function AdminQuestions() {
     const [questions, setQuestions] = useState([]);
     const [editingQuestion, setEditingQuestion] = useState(null);
 
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
+
     const createQuestion = async (question) => {
         try {
             const response = await API.post(
@@ -25,8 +28,14 @@ function AdminQuestions() {
                 response.data
             ]);
 
+            setMessage("Question created successfully.");
+            setError("");
+
         } catch (err) {
             console.error(err);
+
+            setError("Failed to create question.");
+            setMessage("");
         }
     };
 
@@ -102,6 +111,17 @@ function AdminQuestions() {
             <Card>
                 <h1>Admin Questions</h1>
                 <p>Manage certification questions.</p>
+                {message && (
+                    <p className="success-message">
+                        {message}
+                    </p>
+                )}
+
+                {error && (
+                    <p className="error-message">
+                        {error}
+                    </p>
+                )}
             </Card>
 
             <Card>
