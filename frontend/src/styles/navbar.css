@@ -41,3 +41,21 @@
 .logout-button:hover {
     background: #dc2626;
 }
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .nav-logo {
+        font-size: 2rem;
+    }
+}

@@ -10,7 +10,11 @@ function DomainPerformance({ domains }) {
     return (
         <div>
             {domains.length === 0 ? (
-                <p>No domain data yet.</p>
+                <div className="empty-state">
+                    <p>
+                        Complete quizzes to unlock domain performance analytics.
+                    </p>
+                </div>
             ) : (
                 domains.map((domain) => {
                     const colorClass = getDomainColorClass(domain.accuracy);
