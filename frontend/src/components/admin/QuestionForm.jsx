@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../../styles/admin.css";
 
-function QuestionForm({ onCreate }) {
+function QuestionForm({ onCreate, editingQuestion }) {
     const [form, setForm] = useState({
         domain: "",
         question_text: "",
@@ -13,6 +13,20 @@ function QuestionForm({ onCreate }) {
         explanation: "",
     });
 
+    useEffect(() => {
+        if (editingQuestion) {
+            setForm({
+                domain: editingQuestion.domain,
+                question_text: editingQuestion.question_text,
+                option_a: editingQuestion.option_a,
+                option_b: editingQuestion.option_b,
+                option_c: editingQuestion.option_c,
+                option_d: editingQuestion.option_d,
+                correct_answer: editingQuestion.correct_answer,
+                explanation: editingQuestion.explanation,
+            });
+        }
+    }, [editingQuestion]);
 
     const handleChange = (e) => {
         setForm({
@@ -106,7 +120,7 @@ function QuestionForm({ onCreate }) {
             />
 
             <button type="submit">
-                Add Question
+                {editingQuestion ? "Update Question" : "Add Question"}
             </button>
 
         </form>

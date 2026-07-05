@@ -11,6 +11,7 @@ function AdminQuestions() {
     const navigate = useNavigate();
 
     const [questions, setQuestions] = useState([]);
+    const [editingQuestion, setEditingQuestion] = useState(null);
 
     const createQuestion = async (question) => {
         try {
@@ -52,6 +53,27 @@ function AdminQuestions() {
         }
     };
 
+    const updateQuestion = async (question) => {
+        try {
+            const response = await API.put(
+                `/questions/${editingQuestion.id}`,
+                question
+            );
+
+            setQuestions(
+                questions.map(q =>
+                    q.id === editingQuestion.id
+                        ? response.data
+                        : q
+                )
+            );
+
+            setEditingQuestion(null);
+
+        } catch (err) {
+            console.error(err);
+        }
+    };
     useEffect(() => {
         const verifyAdmin = async () => {
             try {
@@ -84,13 +106,22 @@ function AdminQuestions() {
 
             <Card>
                 <h2>Add Question</h2>
-                <QuestionForm onCreate={createQuestion} />
-            </Card>
+                <QuestionForm
+                    onCreate={
+                        editingQuestion
+                            ? updateQuestion
+                            : createQuestion
+                    }
+                    editingQuestion={editingQuestion}
+                />            </Card>
 
             <QuestionList
                 questions={questions}
                 onDelete={deleteQuestion}
-            />        </Layout>
+                onEdit={setEditingQuestion}
+            />
+
+        </Layout>
     );
 }
 
