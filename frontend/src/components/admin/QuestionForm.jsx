@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../../styles/admin.css";
 
 function QuestionForm({ onCreate }) {
     const [form, setForm] = useState({
@@ -40,8 +41,10 @@ function QuestionForm({ onCreate }) {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-
+        <form
+            className="admin-form"
+            onSubmit={handleSubmit}
+        >
             <input
                 name="domain"
                 placeholder="Domain"
@@ -56,33 +59,37 @@ function QuestionForm({ onCreate }) {
                 onChange={handleChange}
             />
 
-            <input
-                name="option_a"
-                placeholder="Option A"
-                value={form.option_a}
-                onChange={handleChange}
-            />
+            <div className="admin-options">
 
-            <input
-                name="option_b"
-                placeholder="Option B"
-                value={form.option_b}
-                onChange={handleChange}
-            />
+                <input
+                    name="option_a"
+                    placeholder="Option A"
+                    value={form.option_a}
+                    onChange={handleChange}
+                />
 
-            <input
-                name="option_c"
-                placeholder="Option C"
-                value={form.option_c}
-                onChange={handleChange}
-            />
+                <input
+                    name="option_b"
+                    placeholder="Option B"
+                    value={form.option_b}
+                    onChange={handleChange}
+                />
 
-            <input
-                name="option_d"
-                placeholder="Option D"
-                value={form.option_d}
-                onChange={handleChange}
-            />
+                <input
+                    name="option_c"
+                    placeholder="Option C"
+                    value={form.option_c}
+                    onChange={handleChange}
+                />
+
+                <input
+                    name="option_d"
+                    placeholder="Option D"
+                    value={form.option_d}
+                    onChange={handleChange}
+                />
+
+            </div>
 
             <input
                 name="correct_answer"

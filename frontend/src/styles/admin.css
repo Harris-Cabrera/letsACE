@@ -1,0 +1,41 @@
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.admin-form input,
+.admin-form textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border-radius: 10px;
+    border: 1px solid #334155;
+
+    background: #0f172a;
+    color: white;
+
+    font-size: 1rem;
+}
+
+.admin-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+
+.admin-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+
+.admin-form button {
+    align-self: flex-start;
+
+    padding: 12px 24px;
+
+    border-radius: 10px;
+}
