@@ -65,6 +65,7 @@ class UserLogin(BaseModel):
 class UserResponse(BaseModel):
     id: int
     email: EmailStr
+    is_admin: bool
 
     class Config:
         from_attributes = True
@@ -100,6 +101,7 @@ class QuizCreate(BaseModel):
     domains: List[str]
     limit: int
     mode: str
+
 
 class QuestionCreate(BaseModel):
     domain: str

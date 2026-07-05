@@ -10,6 +10,7 @@ import "./styles/quiz.css";
 import "./styles/statCard.css";
 
 
+import AdminQuestions from "./pages/AdminQuestions";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Quiz from "./pages/Quiz";
@@ -31,7 +32,12 @@ function App() {
         <Route path="/quiz" element={<Quiz />} />
 
         <Route path="/results" element={<Results />} />
-        <Route path="/review/:attemptId" element={<Review />} />      </Routes>
+        <Route path="/review/:attemptId" element={<Review />} />
+        
+        <Route path="/admin/questions" element={<AdminQuestions />}
+
+        />
+      </Routes>
     </BrowserRouter>
   );
 }
