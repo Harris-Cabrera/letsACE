@@ -30,6 +30,14 @@ function AdminQuestions() {
     };
 
     const deleteQuestion = async (id) => {
+        const confirmed = window.confirm(
+            "Delete this question?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
         try {
             await API.delete(`/questions/${id}`);
 
