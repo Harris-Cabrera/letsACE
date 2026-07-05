@@ -40,49 +40,49 @@ function AdminQuestions() {
     };
 
     const deleteQuestion = async (id) => {
-        const confirmed = window.confirm(
-            "Delete this question?"
-        );
-
-        if (!confirmed) {
-            return;
-        }
-
         try {
             await API.delete(`/questions/${id}`);
 
             setQuestions(
-                questions.filter(
-                    question => question.id !== id
-                )
+                questions.filter((q) => q.id !== id)
             );
+
+            setMessage("Question deleted successfully.");
+            setError("");
 
         } catch (err) {
             console.error(err);
+
+            setError("Failed to delete question.");
+            setMessage("");
         }
     };
 
-    const updateQuestion = async (question) => {
+    const updateQuestion = async (id, question) => {
         try {
             const response = await API.put(
-                `/questions/${editingQuestion.id}`,
+                `/questions/${id}`,
                 question
             );
 
             setQuestions(
-                questions.map(q =>
-                    q.id === editingQuestion.id
-                        ? response.data
-                        : q
+                questions.map((q) =>
+                    q.id === id ? response.data : q
                 )
             );
 
+            setMessage("Question updated successfully.");
+            setError("");
             setEditingQuestion(null);
 
         } catch (err) {
             console.error(err);
+
+            setError("Failed to update question.");
+            setMessage("");
         }
     };
+
     useEffect(() => {
         const verifyAdmin = async () => {
             try {
@@ -127,13 +127,12 @@ function AdminQuestions() {
             <Card>
                 <h2>Add Question</h2>
                 <QuestionForm
-                    onCreate={
-                        editingQuestion
-                            ? updateQuestion
-                            : createQuestion
-                    }
+                    onCreate={createQuestion}
+                    onUpdate={updateQuestion}
                     editingQuestion={editingQuestion}
-                />            </Card>
+                    onCancelEdit={() => setEditingQuestion(null)}
+                />
+            </Card>
 
             <QuestionList
                 questions={questions}

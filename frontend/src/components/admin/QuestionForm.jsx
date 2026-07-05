@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../../styles/admin.css";
 
-function QuestionForm({ onCreate, editingQuestion }) {
+function QuestionForm({ onCreate, onUpdate, editingQuestion, onCancelEdit }) {
     const [form, setForm] = useState({
         domain: "",
         question_text: "",
@@ -15,6 +15,8 @@ function QuestionForm({ onCreate, editingQuestion }) {
 
     useEffect(() => {
         if (editingQuestion) {
+            console.log(editingQuestion);
+
             setForm({
                 domain: editingQuestion.domain,
                 question_text: editingQuestion.question_text,
@@ -37,20 +39,30 @@ function QuestionForm({ onCreate, editingQuestion }) {
 
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        const clearForm = () => {
+            setForm({
+                domain: "",
+                question_text: "",
+                option_a: "",
+                option_b: "",
+                option_c: "",
+                option_d: "",
+                correct_answer: "",
+                explanation: "",
+            });
+        };
 
-        onCreate(form);
+        const handleSubmit = (e) => {
+            e.preventDefault();
 
-        setForm({
-            domain: "",
-            question_text: "",
-            option_a: "",
-            option_b: "",
-            option_c: "",
-            option_d: "",
-            correct_answer: "",
-            explanation: "",
-        });
+            if (editingQuestion) {
+                onUpdate(editingQuestion.id, form);
+            } else {
+                onCreate(form);
+            }
+
+            clearForm();
+        };
     };
 
 
@@ -122,6 +134,17 @@ function QuestionForm({ onCreate, editingQuestion }) {
             <button type="submit">
                 {editingQuestion ? "Update Question" : "Add Question"}
             </button>
+            {editingQuestion && (
+                <button
+                    type="button"
+                    onClick={() => {
+                        clearForm();
+                        onCancelEdit();
+                    }}
+                >
+                    Cancel
+                </button>
+            )}
 
         </form>
     );

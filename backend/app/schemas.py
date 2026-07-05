@@ -26,6 +26,8 @@ class QuestionResponse(BaseModel):
     option_b: str
     option_c: str
     option_d: str
+    correct_answer: str
+    explanation: str
 
     class Config:
         from_attributes = True
