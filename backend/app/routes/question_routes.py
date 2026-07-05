@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import func
 
@@ -44,3 +44,51 @@ def create_question(
     db.refresh(new_question)
 
     return new_question
+
+
+@router.put("/{question_id}")
+def update_question(
+    question_id: int,
+    updated_question: schemas.QuestionCreate,
+    db: Session = Depends(get_db),
+    admin=Depends(require_admin),
+):
+    question = (
+        db.query(models.Question).filter(models.Question.id == question_id).first()
+    )
+
+    if not question:
+        raise HTTPException(status_code=404, detail="Question not found")
+
+    question.domain = updated_question.domain
+    question.question_text = updated_question.question_text
+    question.option_a = updated_question.option_a
+    question.option_b = updated_question.option_b
+    question.option_c = updated_question.option_c
+    question.option_d = updated_question.option_d
+    question.correct_answer = updated_question.correct_answer
+    question.explanation = updated_question.explanation
+
+    db.commit()
+    db.refresh(question)
+
+    return question
+
+
+@router.delete("/{question_id}")
+def delete_question(
+    question_id: int,
+    db: Session = Depends(get_db),
+    admin=Depends(require_admin),
+):
+    question = (
+        db.query(models.Question).filter(models.Question.id == question_id).first()
+    )
+
+    if not question:
+        raise HTTPException(status_code=404, detail="Question not found")
+
+    db.delete(question)
+    db.commit()
+
+    return {"message": "Question deleted"}
