@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api";
+
 
 import Card from "../components/Card";
 import Layout from "../components/Layout";
@@ -8,6 +10,8 @@ import "../styles/auth.css";
 function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
 
     const handleRegister = async (e) => {
         e.preventDefault();
