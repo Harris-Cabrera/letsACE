@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import "./styles/card.css";
 import "./styles/dashboard.css";
@@ -23,7 +23,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -33,7 +34,7 @@ function App() {
 
         <Route path="/results" element={<Results />} />
         <Route path="/review/:attemptId" element={<Review />} />
-        
+
         <Route path="/admin/questions" element={<AdminQuestions />}
 
         />
