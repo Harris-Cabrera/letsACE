@@ -1,4 +1,4 @@
-import ProgressBar from "../ProgressBard";
+import ProgressBar from "../ProgressBar";
 
 function QuizHeader({
     mode,
