@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import API from "../api";
-import AnswerCard from "../components/answerCard";
+import AnswerCard from "../components/AnswerCard";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
 import FeedbackBox from "../components/quiz/FeedbackBox";
