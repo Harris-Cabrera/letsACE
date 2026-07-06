@@ -50,3 +50,35 @@
     width: 100%;
 
 }
+
+.auth-footer {
+    margin-top: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    align-items: center;
+}
+
+
+.auth-footer p {
+    color: var(--text-secondary);
+
+    margin: 0;
+}
+
+
+.secondary-button {
+    background: transparent;
+
+    border: 1px solid #3b82f6;
+
+    color: #60a5fa;
+}
+
+
+.secondary-button:hover {
+    background: rgba(59, 130, 246, 0.15);
+}

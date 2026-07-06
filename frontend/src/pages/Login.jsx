@@ -69,7 +69,19 @@ function Login() {
             <button type="submit">
               Login
             </button>
+            <div className="auth-footer">
 
+              <p>Don't have an account?</p>
+
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() => navigate("/register")}
+              >
+                Create Account
+              </button>
+
+            </div>
           </form>
 
         </div>
