@@ -40,7 +40,7 @@ function Login() {
 
   return (
     <Layout>
-      <Card>
+      <Card className="auth-card">
         <div className="auth-container">
 
           <h1>letsACE</h1>

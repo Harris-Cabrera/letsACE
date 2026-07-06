@@ -5,3 +5,11 @@
   padding: 32px;
   box-shadow: var(--shadow);
 }
+
+.auth-card {
+  max-width: 520px;
+
+  display: flex;
+
+  justify-content: center;
+}

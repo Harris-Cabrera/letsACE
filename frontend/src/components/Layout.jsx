@@ -14,7 +14,7 @@ function Layout({ children }) {
         <div className="app-layout">
             {!hideNavbar && <Navbar />}
 
-            <main className="app-content">
+            <main className={hideNavbar ? "app-content auth-layout" : "app-content"}>
                 {children}
             </main>
         </div>
