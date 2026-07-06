@@ -3,7 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import engine
 from app import models
-from app.routes import auth_routes, question_routes, quiz_routes, dashboard_routes, history_routes
+from app.routes import (
+    auth_routes,
+    question_routes,
+    quiz_routes,
+    dashboard_routes,
+    history_routes,
+)
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -11,7 +17,11 @@ app = FastAPI(title="letsACE API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://lets-ace.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
