@@ -9,7 +9,6 @@ import "./styles/progress.css";
 import "./styles/quiz.css";
 import "./styles/statCard.css";
 
-
 import AdminQuestions from "./pages/AdminQuestions";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";

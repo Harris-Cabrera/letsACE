@@ -7,7 +7,6 @@ import Layout from "../components/Layout";
 import ReviewCard from "../components/review/ReviewCard";
 import ReviewSummary from "../components/review/ReviewSummary";
 
-
 import "../styles/review.css";
 
 function Review() {
