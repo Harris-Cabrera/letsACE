@@ -39,4 +39,9 @@ jobs:
 
       - name: Run tests
         working-directory: backend
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET_KEY: test-secret-key
+          ALGORITHM: HS256
+          ACCESS_TOKEN_EXPIRE_MINUTES: 30
         run: pytest
