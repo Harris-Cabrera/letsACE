@@ -1,5 +1,5 @@
 # letsACEREADME.md
-
+![Backend Tests](https://github.com/Harris-Cabrera/letsACE/actions/workflows/backend-tests.yml/badge.svg)
 # letsACE
 
 Certification practice platform built with React, FastAPI, and PostgreSQL.
@@ -44,21 +44,34 @@ React Client
 
 ## Screenshots
 
-Login
-Dashboard
-Quiz
-Review
-Admin Panel
+### Login
+![Login](screenshots/letsACE_login.jpg)
+
+### User Dashboard
+![User Dashboard](screenshots/letsACE_UserDashboard.jpg)
+
+### Quiz Settings
+![Quiz Settings](screenshots/letsACE_UserQuizSettings.jpg)
+
+### Quiz
+![Quiz](screenshots/letsACE_UserQuiz.jpg)
+
+### Quiz Review
+![Quiz Review](screenshots/letsACE_UserQuizReview.jpg)
+
+### Admin Panel
+![Admin Panel](screenshots/letsACE_AdminPanel.jpg)
 
 
-## Demo
+## Live Demo
 
-Live App:
-https://lets-ace.vercel.app
+Live App: https://letsace.app
 
-Demo Account:
-email:
-password:
+Demo User:
+
+```text
+Email: demo@letsace.com
+Password: password123
 
 
 ## Running Locally
