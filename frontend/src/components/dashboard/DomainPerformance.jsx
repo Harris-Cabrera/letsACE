@@ -32,6 +32,9 @@ function DomainPerformance({ domains }) {
                                     style={{ width: `${domain.accuracy}%` }}
                                 />
                             </div>
+                            <p className="domain-details">
+                                {domain.correct}/{domain.answered} correct
+                            </p>
                         </div>
                     );
                 })

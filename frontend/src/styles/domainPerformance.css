@@ -32,3 +32,12 @@
 .domain-fill.low {
     background: #ef4444;
 }
+
+.domain-details {
+    margin-top: 8px;
+    margin-bottom: 20px;
+
+    color: var(--text-secondary);
+
+    font-size: 0.9rem;
+}

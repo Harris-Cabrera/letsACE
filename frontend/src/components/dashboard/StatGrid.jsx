@@ -14,7 +14,8 @@ function StatGrid({ stats }) {
             <StatCard
                 icon="🏆"
                 title="Best Score"
-                value={`${stats.best_score}%`} />
+                value={`${stats.best_score.toFixed(1)}%`}
+            />
             <StatCard
                 icon="✅"
                 title="Questions Answered"
