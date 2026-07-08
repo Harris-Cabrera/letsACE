@@ -5,6 +5,7 @@ import API from "../api";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
 import QuestionForm from "../components/admin/QuestionForm";
+import QuestionImport from "../components/admin/QuestionImport";
 import QuestionList from "../components/admin/QuestionList";
 
 function AdminQuestions() {
@@ -18,6 +19,7 @@ function AdminQuestions() {
     const [error, setError] = useState("");
 
     const [loading, setLoading] = useState(true);
+
 
 
     const createQuestion = async (question) => {
@@ -95,6 +97,10 @@ function AdminQuestions() {
         }
     };
 
+    const refreshQuestions = async () => {
+        const response = await API.get("/questions/");
+        setQuestions(response.data);
+    };
 
     const filteredQuestions = questions.filter((question) =>
         question.question_text
@@ -116,8 +122,7 @@ function AdminQuestions() {
                     return;
                 }
 
-                const questionsResponse = await API.get("/questions/");
-                setQuestions(questionsResponse.data);
+                await refreshQuestions();
 
             } catch (err) {
                 console.error(err);
@@ -164,6 +169,10 @@ function AdminQuestions() {
                 />
             </Card>
 
+            <Card>
+                <QuestionImport onImport={refreshQuestions} />
+            </Card>
+            
             <Card>
                 <h2>Add Question</h2>
                 <QuestionForm
