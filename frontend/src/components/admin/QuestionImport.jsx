@@ -26,7 +26,7 @@ function QuestionImport({ onImport }) {
             );
 
             setMessage(
-                `${response.data.count} questions imported successfully.`
+                `${response.data.imported} imported, ${response.data.skipped} skipped.`
             );
 
             setFile(null);

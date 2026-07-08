@@ -85,20 +85,25 @@ def import_questions(
     admin=Depends(require_admin),
 ):
     if not file.filename.endswith(".csv"):
-        raise HTTPException(
-            status_code=400,
-            detail="Only CSV files are supported"
-        )
+        raise HTTPException(status_code=400, detail="Only CSV files are supported")
 
     contents = file.file.read().decode("utf-8")
 
-    reader = csv.DictReader(
-        io.StringIO(contents)
-    )
+    reader = csv.DictReader(io.StringIO(contents))
 
     imported = 0
-
+    skipped = 0
     for row in reader:
+        existing_question = (
+            db.query(models.Question)
+            .filter(models.Question.question_text == row["question_text"])
+            .first()
+        )
+
+        if existing_question:
+            skipped += 1
+            continue
+
         question = models.Question(
             domain=row["domain"],
             question_text=row["question_text"],
@@ -117,8 +122,10 @@ def import_questions(
 
     return {
         "message": "Questions imported successfully",
-        "count": imported,
+        "imported": imported,
+        "skipped": skipped,
     }
+
 
 @router.delete("/{question_id}")
 def delete_question(
