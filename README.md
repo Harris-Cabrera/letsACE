@@ -1,46 +1,101 @@
-# letsACEREADME.md
-![Backend Tests](https://github.com/Harris-Cabrera/letsACE/actions/workflows/backend-tests.yml/badge.svg)
 # letsACE
 
-Certification practice platform built with React, FastAPI, and PostgreSQL.
+![Backend Tests](https://github.com/Harris-Cabrera/letsACE/actions/workflows/backend-tests.yml/badge.svg)
+
+A full-stack certification practice platform built with React, FastAPI, and PostgreSQL.
+
+letsACE allows users to take customizable quizzes, track performance analytics, review answers, and manage certification questions through an admin dashboard.
+
+## Live Demo
+
+Live App: https://letsace.app
+
+Demo User:
+
+```text
+Email: demo@letsace.com
+Password: password123
+```
+
+---
 
 ## Features
-- Secure user authentication with JWT
-- Custom quiz engine
-- Performance dashboard
-- Question review system
-- Admin question management
-- Responsive UI
+
+### User Features
+- JWT-based authentication and protected routes
+- Custom quiz generation
+- Multiple certification domains
+- Quiz attempt history
+- Answer review with explanations
+- Performance dashboard and statistics tracking
+
+### Admin Features
+- Role-based admin access
+- Create, update, and delete questions
+- CSV question import
+- Question bank management
+
+### Engineering Features
+- REST API backend architecture
+- PostgreSQL relational database design
+- ORM models with SQLAlchemy
+- Database migrations using Alembic
+- Automated backend testing with Pytest
+- CI pipeline using GitHub Actions
+
+---
 
 ## Tech Stack
 
-Frontend:
-React
-Vite
-Axios
-React Router
+### Frontend
+- React
+- Vite
+- Axios
+- React Router
+- CSS
 
-Backend:
-FastAPI
-SQLAlchemy
-PostgreSQL
-Alembic
-JWT Authentication
+### Backend
+- FastAPI
+- Python
+- SQLAlchemy
+- PostgreSQL
+- Alembic
+- JWT Authentication
 
-Deployment:
-Vercel
-Render
+### Deployment / DevOps
+- Vercel
+- Render
+- GitHub Actions CI/CD
+
+---
 
 ## Architecture
 
-React Client
-      |
-      |
- FastAPI REST API
-      |
-      |
- PostgreSQL Database
+```text
+                React Client
+                     |
+                     |
+              FastAPI REST API
+                     |
+                     |
+              PostgreSQL Database
 
+
+Development Pipeline:
+
+Developer
+    |
+    |
+ GitHub Repository
+    |
+    |
+GitHub Actions Tests
+    |
+    |
+Production Deployment
+```
+
+---
 
 ## Screenshots
 
@@ -62,23 +117,56 @@ React Client
 ### Admin Panel
 ![Admin Panel](screenshots/letsACE_AdminPanel.jpg)
 
-
-## Live Demo
-
-Live App: https://letsace.app
-
-Demo User:
-
-```text
-Email: demo@letsace.com
-Password: password123
-
+---
 
 ## Running Locally
 
-Backend:
+Clone repository:
+
+```bash
+git clone https://github.com/Harris-Cabrera/letsACE.git
+```
+
+Backend setup:
+
+```bash
+cd backend
+
 pip install -r requirements.txt
 
-Frontend:
+uvicorn app.main:app --reload
+```
+
+Frontend setup:
+
+```bash
+cd frontend
+
 npm install
+
 npm run dev
+```
+
+---
+
+## Testing
+
+Run backend tests:
+
+```bash
+cd backend
+
+pytest
+```
+
+---
+
+## Project Status
+
+MVP deployed.
+
+Future improvements:
+- OAuth authentication
+- Expanded certification support
+- Advanced analytics
+- Cloud storage integration
